@@ -89,8 +89,8 @@ script (CLI), using a web interface (GUI) or in you own tools (API)
 
 ### CLI
 
-* [`ocr-transform`](./blob/master/bin/ocr-transform.sh): Transformation of OCR output between OCR formats
-* [`ocr-validate`](./blob/master/bin/ocr-validate.sh): Validation of OCR output against OCR format schemas
+* [`ocr-transform`](./bin/ocr-transform.sh): Transformation of OCR output between OCR formats
+* [`ocr-validate`](./bin/ocr-validate.sh): Validation of OCR output against OCR format schemas
 
 ### GUI
 
@@ -224,7 +224,7 @@ Usage: ocr-validate [-dhL] <schema> <file> [<resultsFile>]
 
 ### Validation CLI
 
-For example, to validate an XML file againt the ALTO 3.1 schema:
+For example, to validate an XML file against the ALTO 3.1 schema:
 
 ```
 ocr-validate alto-3-1 myFile.alto
