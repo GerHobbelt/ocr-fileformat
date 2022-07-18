@@ -6,7 +6,7 @@ BASENAME=$(BOOK)_$(PAGE)
 DEBIAN_PACKAGES = libxml2-utils tesseract-ocr tesseract-ocr-script-frak wget dwdiff
 XMLLINT = xmllint --format
 OCR_TRANSFORM = ../bin/ocr-transform.sh
-TESSERACT = tesseract -l Fraktur
+TESSERACT = /usr/bin/tesseract -l Fraktur
 WGET = wget
 RM = rm -f
 DWDIFF = dwdiff -p -l -c
@@ -24,7 +24,7 @@ deps:
 diff: $(BASENAME).roundtrip.hocr $(BASENAME).hocr
 	$(DWDIFF) $^ || exit 0
 
-.PHONY: diff
+.PHONY: idiff
 idiff: $(BASENAME).roundtrip.hocr $(BASENAME).hocr
 	$(DWDIFF) $^ | $(PAGER)
 
