@@ -8,7 +8,7 @@ DOCKER_IMAGE = ubma/ocr-fileformat
 ROOTDIR = $(abspath $(dir $(MAKEFILE_LIST)))
 VERSION = $(shell [ -d "$(ROOTDIR)/.git" ] && git -C "$(ROOTDIR)" describe --tags || echo $(PKG_VERSION))
 
-CP = cp -r
+CP = cp -a
 LN = ln -sf
 MV = mv -f
 MKDIR = mkdir -p
@@ -106,16 +106,15 @@ xslt: vendor
 
 # Install ocr-fileformat
 define SEDSCRIPT
-cat <<"EOF"
-/^SHAREDIR=/c\
-SHAREDIR="$(SHAREDIR)"
-s/VERSION/$(VERSION)/
-EOF
+echo '/^SHAREDIR=/c\'
+echo 'SHAREDIR="$(SHAREDIR)"'
+echo 's/VERSION/$(VERSION)/'
 endef
 export SEDSCRIPT
 install: all
 	$(MKDIR) $(SHAREDIR)
 	$(CP) script xsd xslt vendor lib.sh $(SHAREDIR)
+	$(RM) $(SHAREDIR)/vendor/*/.git
 	$(MKDIR) $(BINDIR)
 	eval "$$SEDSCRIPT" | sed -f - bin/ocr-transform.sh > $(BINDIR)/ocr-transform
 	eval "$$SEDSCRIPT" | sed -f - bin/ocr-validate.sh  > $(BINDIR)/ocr-validate
